@@ -56,6 +56,7 @@ html {
     <script>
     $(function() {
         var githubAPI = 'https://api.github.com/';
+        var githubURL = 'https://github.com/'
         var githubRepo = '{{ site.baseurl }}'.replace('/', '');
         console.log ( 'repo = ' + githubRepo );
         var githubOwner = '{{ site.githubOwner }}'
@@ -80,7 +81,8 @@ html {
                 //console.log( index );
                 console.log( 'the milestone number (id) is = ' + milestone.number );
                 // HTML for milestones
-                $( "#js-milestones-html" ).append( '<a href="' + milestone.url + '"><h1>' + milestone.title + '</h1></a>');
+                // milestone urls = https://github.com/[user]/[repo]/milestones/[milestone name]
+                $( "#js-milestones-html" ).append( '<a href="' + githubURL + githubOwner + '/' + githubRepo + '/milestones/' + milestone.title + '"><h1>' + milestone.title + '</h1></a>');
                 $( "#js-milestones-html" ).append( '<p>' + milestone.description + '</p>');
                 $.get( githubAPI + 'repos/' + githubOwner + '/' + githubRepo + '/issues?milestone=' + milestone.number, function( issues ) {
 
@@ -93,10 +95,11 @@ html {
                         console.log( 'milestone for this issue = ' + issue.milestone.number );
                         if ( saveMilestone != issue.milestone.number ) {
                             saveMilestone = issue.milestone.number;
-                            $( "#js-issues-html" ).append( '<a href="' + milestone.url + '"><h1>' + milestone.title + '</h1></a>');
+                            $( "#js-issues-html" ).append( '<a href="' + githubURL + githubOwner + '/' + githubRepo + '/milestones/' + milestone.title + '"><h1>' + milestone.title + '</h1></a>');
                             $( "#js-issues-html" ).append( '<p>' + milestone.description + '</p>');
                         }
-                        $( "#js-issues-html" ).append( '<a href="' + issue.url + '"><h3>' + issue.title + '</h3></a>');
+                        // issue urls = https://github.com/[user]/[repo]/issues/[number]
+                        $( "#js-issues-html" ).append( '<a href="' + githubURL + githubOwner + '/' + githubRepo + '/issues/' + issue.number + '"><h3>' + issue.title + '</h3></a>');
                         $( "#js-issues-html" ).append( '<p>' + issue.body + '</p>');
                     });
                 });
