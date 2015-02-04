@@ -1,0 +1,4 @@
+# change to your project name
+baseurl: /dashboard
+# change to the github repo owner
+githubOwner: awolfe76
